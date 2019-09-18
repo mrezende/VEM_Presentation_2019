@@ -55,7 +55,7 @@ C^{*} = \underset{C \in \mathbb{C}}{argmax}\text{ } F_{r}(Q , C)
 \end{frame}
 
 \begin{frame}{Joint embedding}
-	Seja $\mathbb{Q}$ o conjunto formado pelas questões e $\mathbb{C}$ o conjunto composto por trechos de código-fonte:
+	Seja $\mathbb{Q}$ o conjunto formado pelas questões e $\mathbb{C}$ o conjunto composto por trechos de código-fonte \cite{Gu-deep-code-search:2018}:
 	
     \begin{equation}
         \mathbb{C} \xrightarrow{\mathbb{E}_{c}} \mathbb{V}_{c} \rightarrow \mathbb{J}(\mathbb{V}_{c}, \mathbb{V}_{q}) \leftarrow \mathbb{V}_{q} \xleftarrow{\mathbb{E}_{q}} \mathbb{Q}
@@ -64,38 +64,48 @@ C^{*} = \underset{C \in \mathbb{C}}{argmax}\text{ } F_{r}(Q , C)
 
 
 \begin{frame}{Forma de aprendizagem}
-	Função de perda \textit{hinge} \cite{tan-lstm-qa}:
+	Função de perda \textit{hinge} \cite{tan-lstm-qa, Gu-deep-code-search:2018}:
 	
     \begin{equation}
-    L = max(0, m - h_{\theta}(q_{i}, c_{i}^{+}) + h_{\theta}(q_{i}, c_{i}^{-}))   
+    L = max(0, m - \mathbb{J}(q_{i}, c_{i}^{+}) + \mathbb{J}(q_{i}, c_{i}^{-}))   
     \end{equation}
 \end{frame}
 
 
 
 
-{
-\metroset{titleformat frame=allcaps}
-\begin{frame}{All caps}
-	This frame uses the \texttt{allcaps} titleformat.
 
-	\begin{alertblock}{Potential Problems}
-		This titleformat is not as problematic as the \texttt{allsmallcaps} format, but basically suffers from the same deficiencies. So please have a look at the documentation if you want to use it.
-	\end{alertblock}
+\begin{frame}{Arquitetura}
+	\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.7\textwidth]{ArquiteturaBiLSTM.pdf}
+    \caption{Figura adaptada do \cite{tan-lstm-qa}.}
+    \label{fig:arquitetura-bi-lstm}
+\end{figure}
 \end{frame}
-}
 
-\section{Elements}
 
-\begin{frame}[fragile]{Typography}
-      \begin{verbatim}The theme provides sensible defaults to
-\emph{emphasize} text, \alert{accent} parts
-or show \textbf{bold} results.\end{verbatim}
+\section{Experimento}
 
-  \begin{center}becomes\end{center}
-
-  The theme provides sensible defaults to \emph{emphasize} text,
-  \alert{accent} parts or show \textbf{bold} results.
+\begin{frame}[fragile]{Treinamento}
+      \begin{table}[h]
+\centering
+\begin{tabular}{ p{3cm} r  }
+ \hline
+ \textbf{Amostras} & \textbf{Quantidade de $(q_{i}, c_{i}^{+})$}\\
+ \hline
+ Treinamento & $60.083$\\
+ 
+ DEV & $1.085$ \\
+ 
+ EVAL & $1.084$\\
+ \hline
+ \textbf{Total} & $\textbf{62.252}$\\
+ \hline
+\end{tabular}
+\caption{Divisão das amostras para treinamento conforme os critérios adotados por \cite{iyer-etal-2016-summarizing}.}
+\label{table:divisao-amostras}
+\end{table}
 \end{frame}
 
 \begin{frame}{Font feature test}
